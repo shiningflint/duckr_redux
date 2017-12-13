@@ -1,11 +1,11 @@
 import React from 'react'
-import './Home.css'
+import 'sharedStyles/styles.css'
 
 const Home = (props) => {
   return (
-    <div className='home__container'>
-      <p className='home__title'>{'Duckr'}</p>
-      <p className='home__slogan'>{'Real time, cloud based, modular, scalable, growth hack, social platform. In the cloud'}</p>
+    <div className='centered-container'>
+      <p className='large-header'>{'Duckr'}</p>
+      <p className='sub-header'>{'Real time, cloud based, modular, scalable, growth hack, social platform. In the cloud'}</p>
     </div>
   )
 }

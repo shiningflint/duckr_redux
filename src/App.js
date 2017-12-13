@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { MainContainer } from 'container'
-import { HomeContainer } from 'container'
+import { MainContainer, HomeContainer } from 'container'
 
 class App extends Component {
   render() {

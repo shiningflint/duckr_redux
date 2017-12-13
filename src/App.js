@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { MainContainer, HomeContainer } from 'container'
+import { MainContainer, HomeContainer, AuthenticateContainer } from 'container'
 
 class App extends Component {
   render() {
@@ -9,6 +9,7 @@ class App extends Component {
         <MainContainer>
           <Switch>
             <Route path='/' exact component={HomeContainer} />
+            <Route path='/auth' component={AuthenticateContainer} />
           </Switch>
         </MainContainer>
       </BrowserRouter>

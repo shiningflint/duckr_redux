@@ -1,0 +1,12 @@
+.facebook-authbtn {
+  background: #3B5998;
+  color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  border-width: 0;
+  font-size: 25px;
+  cursor: pointer;
+}
+.facebook-authbtn:hover {
+  background: #1542A0;
+}

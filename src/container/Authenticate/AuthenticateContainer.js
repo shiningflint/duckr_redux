@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Authenticate } from 'components'
 import auth from 'helpers/auth'
+import { connect } from 'react-redux'
 
 class AuthenticateContainer extends Component {
   handleAuth() {
@@ -18,4 +20,13 @@ class AuthenticateContainer extends Component {
   }
 }
 
-export default AuthenticateContainer
+AuthenticateContainer.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired
+}
+
+const mapStateToProps = ({ isFetching, error }) => {
+  return { isFetching, error }
+}
+
+export default connect(mapStateToProps)(AuthenticateContainer)

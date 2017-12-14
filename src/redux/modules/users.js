@@ -4,6 +4,41 @@ const FETCHING_USER = "FETCHING_USER"
 const FETCHING_USER_FAILURE = "FETCHING_USER_FAILURE"
 const FETCHING_USER_SUCCESS = "FETCHING_USER_SUCCESS"
 
+// function authUser() {
+//   return {
+//     type: AUTH_USER,
+//     uid,
+//   }
+// }
+//
+// function unauthUser() {
+//   return {
+//     type: UNAUTH_USER,
+//   }
+// }
+//
+// function fetchingUser() {
+//   return {
+//     type: FETCHING_USER,
+//   }
+// }
+//
+// function fetchingUserFailure() {
+//   return {
+//     type: FETCHING_USER_FAILURE,
+//     error: 'Error fetching user.',
+//   }
+// }
+//
+// function fetchingUserSuccess() {
+//   return {
+//     type: FETCHING_USER_SUCCESS,
+//     uid,
+//     user,
+//     timestamp,
+//   }
+// }
+
 const initialUserState = {
   lastUpdated: 0,
   info: {

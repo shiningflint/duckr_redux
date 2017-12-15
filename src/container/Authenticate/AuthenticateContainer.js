@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Authenticate } from 'components'
-import auth from 'helpers/auth'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as userActionCreators from 'redux/modules/users'
@@ -13,15 +12,10 @@ class AuthenticateContainer extends Component {
   }
 
   handleAuth() {
-    this.props.fetchingUser()
-    auth().then((user) => {
-      this.props.fetchingUserSuccess(user.uid, user, Date.now())
-      this.props.authUser(user.uid)
-    })
-    .catch((error) => (this.props.fetchingUserFailure(error)))
+    this.props.fetchAndHandleAuthedUser()
   }
+
   render () {
-    console.log(this.props);
     return (
       <Authenticate
         isFetching={this.props.isFetching}
@@ -34,14 +28,17 @@ class AuthenticateContainer extends Component {
 AuthenticateContainer.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  fetchingUser: PropTypes.func.isRequired,
-  fetchingUserFailure: PropTypes.func.isRequired,
-  fetchingUserSuccess: PropTypes.func.isRequired,
+  fetchAndHandleAuthedUser: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = (state) => {
+  console.log(state)
+  return { isFetching: state.isFetching, error: state.error }
 }
 
 //mapStateToProps
 //mapDispatchToProps
 export default connect(
-  (state) => ({ isFetching: state.isFetching, error: state.error }),
+  mapStateToProps,
   (dispatch) => bindActionCreators(userActionCreators, dispatch)
 )(AuthenticateContainer)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { MainContainer, HomeContainer, AuthenticateContainer } from 'container'
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer } from 'container'
 
 class App extends Component {
   render() {
@@ -10,6 +10,7 @@ class App extends Component {
           <Switch>
             <Route path='/' exact component={HomeContainer} />
             <Route path='/auth' component={AuthenticateContainer} />
+            <Route path='/feed' component={FeedContainer} />
           </Switch>
         </MainContainer>
       </BrowserRouter>

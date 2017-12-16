@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Authenticate } from 'components'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import * as userActionCreators from 'redux/modules/users'
 
 class AuthenticateContainer extends Component {
@@ -11,8 +12,10 @@ class AuthenticateContainer extends Component {
     this.handleAuth = this.handleAuth.bind(this)
   }
 
-  handleAuth() {
+  handleAuth(e) {
+    e.preventDefault()
     this.props.fetchAndHandleAuthedUser()
+      .then(() => (this.props.history.push('/feed')))
   }
 
   render () {
@@ -32,13 +35,12 @@ AuthenticateContainer.propTypes = {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return { isFetching: state.isFetching, error: state.error }
 }
 
 //mapStateToProps
 //mapDispatchToProps
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   (dispatch) => bindActionCreators(userActionCreators, dispatch)
-)(AuthenticateContainer)
+)(AuthenticateContainer))

@@ -22,6 +22,10 @@ MainContainer.propTypes = {
   isAuthed: PropTypes.bool.isRequired
 }
 
+const mapStateToProps = (state) => {
+  return ({ isAuthed: state.isAuthed })
+}
+
 export default withRouter(connect(
-  (state) => ({ isAuthed: state.isAuthed })
+  mapStateToProps
 )(MainContainer))

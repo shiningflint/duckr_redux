@@ -13,11 +13,11 @@ function authUser(uid) {
   }
 }
 
-function unauthUser() {
-  return {
-    type: UNAUTH_USER,
-  }
-}
+// function unauthUser() {
+//   return {
+//     type: UNAUTH_USER,
+//   }
+// }
 
 function fetchingUser() {
   return {

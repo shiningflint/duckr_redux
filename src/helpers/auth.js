@@ -12,3 +12,7 @@ export default function auth() {
     }, 2000)
   })
 }
+
+export function logout() {
+  return console.log("logged out")
+}

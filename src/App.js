@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import PrivateRoute from 'helpers/PrivateRoute'
 import RedirectRoute from 'helpers/RedirectRoute'
-import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer } from 'container'
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, LogoutContainer } from 'container'
 
 class App extends Component {
   render() {
@@ -13,10 +13,11 @@ class App extends Component {
             <RedirectRoute path='/' exact component={HomeContainer} redirectTo='/feed' />
             <Route path='/auth' component={AuthenticateContainer} />
             <PrivateRoute path='/feed' component={FeedContainer} />
+            <Route path='/logout' component={LogoutContainer} />
           </Switch>
         </MainContainer>
       </BrowserRouter>
-    );
+    )
   }
 }
 

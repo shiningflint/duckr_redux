@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer, PrivateRoute } from 'container'
+import PrivateRoute from 'helpers/PrivateRoute'
+import { MainContainer, HomeContainer, AuthenticateContainer, FeedContainer } from 'container'
 
 class App extends Component {
   render() {

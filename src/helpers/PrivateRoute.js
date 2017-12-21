@@ -19,8 +19,8 @@ PrivateRoute.propTypes = {
   isFetching: PropTypes.bool.isRequired
 }
 
-const mapStateToProps = (state) => {
-  return ({ isAuthed: state.isAuthed, isFetching: state.isFetching })
+const mapStateToProps = ({users}) => {
+  return ({ isAuthed: users.isAuthed, isFetching: users.isFetching })
 }
 
 export default connect(mapStateToProps)(PrivateRoute)

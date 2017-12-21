@@ -44,8 +44,8 @@ MainContainer.propTypes = {
   removeFetchingUser: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
-  return ({ isAuthed: state.isAuthed, isFetching: state.isFetching })
+const mapStateToProps = ({users}) => {
+  return ({ isAuthed: users.isAuthed, isFetching: users.isFetching })
 }
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(userActionCreators, dispatch)

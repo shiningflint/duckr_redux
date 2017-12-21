@@ -34,8 +34,8 @@ AuthenticateContainer.propTypes = {
   fetchAndHandleAuthedUser: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => {
-  return { isFetching: state.isFetching, error: state.error }
+const mapStateToProps = ({users}) => {
+  return { isFetching: users.isFetching, error: users.error }
 }
 
 //mapStateToProps

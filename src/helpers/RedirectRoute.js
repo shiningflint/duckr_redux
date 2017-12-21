@@ -18,8 +18,8 @@ RedirectRoute.propTypes = {
   redirectTo: PropTypes.string.isRequired
 }
 
-const mapStateToProps = (state) => {
-  return ({ isAuthed: state.isAuthed })
+const mapStateToProps = ({users}) => {
+  return ({ isAuthed: users.isAuthed })
 }
 
 export default connect(mapStateToProps)(RedirectRoute)

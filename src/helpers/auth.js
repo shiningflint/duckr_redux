@@ -1,18 +1,15 @@
+import { ref, firebaseAuth, provider } from 'helpers/constants'
+
 export default function auth() {
-  return new Promise((resolve, reject) => {
-    const failSuccessFlag = true
-    setTimeout(() => {
-      failSuccessFlag === true
-        ? resolve({
-            name: 'Adam Christopher',
-            avatar: 'https://image.flaticon.com/icons/svg/0/93.svg',
-            uid: 'adumkeristoper',
-          })
-        : reject()
-    }, 2000)
-  })
+  return firebaseAuth().signInWithPopup(provider)
 }
 
 export function logout() {
-  return console.log("logged out")
+  return firebaseAuth().signout()
+}
+
+export function saveUser(user) {
+  return ref.child(`users/${user.uid}`)
+  .set(user)
+  .then(() => user)
 }

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 
-const PrivateRoute = ({ isAuthed, component: Component, ...rest }) => {
+const PrivateRoute = ({ isFetching, isAuthed, component: Component, ...rest }) => {
+  if (isFetching === true) { return (<div>{'spinner'}</div>) }
   return (
     <Route {...rest} render={(props) => (
       isAuthed === true
@@ -14,11 +15,12 @@ const PrivateRoute = ({ isAuthed, component: Component, ...rest }) => {
 }
 
 PrivateRoute.propTypes = {
-  isAuthed: PropTypes.bool.isRequired
+  isAuthed: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => {
-  return ({ isAuthed: state.isAuthed })
+  return ({ isAuthed: state.isAuthed, isFetching: state.isFetching })
 }
 
 export default connect(mapStateToProps)(PrivateRoute)

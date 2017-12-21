@@ -5,7 +5,7 @@ export default function auth() {
 }
 
 export function logout() {
-  return firebaseAuth().signout()
+  return firebaseAuth().signOut()
 }
 
 export function saveUser(user) {

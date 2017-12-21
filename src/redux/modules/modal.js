@@ -2,25 +2,24 @@ const OPEN_MODAL = "OPEN_MODAL"
 const CLOSE_MODAL = "CLOSE_MODAL"
 const UPDATE_DUCK_TEXT = "UPDATE_DUCK_TEXT"
 
-//Modal
-const openModal = () => {
+export const openModal = () => {
   return {
     type: OPEN_MODAL,
   }
 }
 
-const closeModal = () => {
+export const closeModal = () => {
   return {
     type: CLOSE_MODAL,
   }
 }
 
-// const updateDuckText = () => {
-//   return {
-//     type: UPDATE_DUCK_TEXT,
-//     newDuckText,
-//   }
-// }
+export const updateDuckText = (newDuckText) => {
+  return {
+    type: UPDATE_DUCK_TEXT,
+    newDuckText,
+  }
+}
 
 
 const initialState = {

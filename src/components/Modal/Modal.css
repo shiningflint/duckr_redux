@@ -1,0 +1,32 @@
+.new-duck-top {
+  background: #fff;
+  padding: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1877E6;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.base-text-area--no-border {
+  border-width: 0;
+}
+
+.dark-btn--no-decor {
+  text-decoration: none;
+}
+
+.dark-btn--submit-duck {
+  margin: 0px auto;
+  width: 150px;
+  text-align: center;
+  display: block;
+}
+
+.submit-duck-btn:disabled {
+  background: #C6C6C6;
+  border: 1px solid #C6C6C6;
+}

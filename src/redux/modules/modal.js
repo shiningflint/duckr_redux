@@ -23,6 +23,7 @@ export const updateDuckText = (newDuckText) => {
 
 
 const initialState = {
+  duckText: '',
   isOpen: false
 }
 
@@ -41,7 +42,7 @@ export default function modal(state = initialState, action) {
     case UPDATE_DUCK_TEXT :
       return {
         ...state,
-        duck: action.newDuckText,
+        duckText: action.newDuckText,
       }
     default:
       return state

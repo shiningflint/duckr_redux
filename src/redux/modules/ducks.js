@@ -42,13 +42,13 @@ function addDuck(duck) {
     duck,
   }
 }
-//
-// function addMultipleDucks(ducks) {
-//   return {
-//     type: ADD_MULTIPLE_DUCKS,
-//     ducks,
-//   }
-// }
+
+export function addMultipleDucks(ducks) {
+  return {
+    type: ADD_MULTIPLE_DUCKS,
+    ducks,
+  }
+}
 
 export function duckFanout(duck) {
   return function(dispatch, getState) {

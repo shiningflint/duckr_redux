@@ -28,3 +28,12 @@ export function saveDuck(duck) {
     saveLikeCount(duckId),
   ]).then(() => ({...duck, duckId}))
 }
+
+export function listenToFeed(callBack, errorCallBack) {
+  ref.child('ducks').on('value', (snapshot) => {
+    const feed = snapshot.val() || {}
+    //Firebase CAN SORT, but for the sake of the course, sort it in JS
+    const sortedIds = Object.keys(feed).sort((a, b) => feed[b].timestamp - feed[a].timestamp)
+    callBack({feed, sortedIds})
+  }, errorCallBack)
+}

@@ -5,6 +5,8 @@ import feed from './feed'
 import usersDucks from './usersDucks'
 import ducks from './ducks'
 import listeners from './listeners'
+import usersLikes from './usersLikes'
+import likeCount from './likeCount'
 
 export default combineReducers({
   users,
@@ -12,5 +14,7 @@ export default combineReducers({
   feed,
   usersDucks,
   ducks,
-  listeners
+  listeners,
+  usersLikes,
+  likeCount
 })

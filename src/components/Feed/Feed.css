@@ -1,0 +1,15 @@
+.new-duck-container {
+  background: #4a90e2;
+  color: #fff;
+  text-align: center;
+}
+.new-duck-container:hover {
+  background: #1877E6;
+  color: #fff;
+}
+
+.feed-header {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 100;
+}

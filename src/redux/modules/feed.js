@@ -29,14 +29,14 @@ function settingFeedListenerSuccess(duckIds) {
   }
 }
 
-function AddNewDuckIdToFeed(duckId) {
+function addNewDuckIdToFeed(duckId) {
   return {
     type: ADD_NEW_DUCK_ID_TO_FEED,
     duckId,
   }
 }
 
-export function ResetNewDucksAvailable() {
+export function resetNewDucksAvailable() {
   return {
     type: RESET_NEW_DUCKS_AVAILABLE,
   }
@@ -56,7 +56,7 @@ export function setAndHandleFeedListener() {
       dispatch(addMultipleDucks(feed))
       initialFetch === true
         ? dispatch(settingFeedListenerSuccess(sortedIds))
-        : dispatch(AddNewDuckIdToFeed(sortedIds[0]))
+        : dispatch(addNewDuckIdToFeed(sortedIds[0]))
     }, (error) => dispatch(settingFeedListenerError(error)))
   }
 }

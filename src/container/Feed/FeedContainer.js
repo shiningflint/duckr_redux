@@ -29,7 +29,7 @@ FeedContainer.propTypes = {
   error: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   setAndHandleFeedListener: PropTypes.func.isRequired,
-  ResetNewDucksAvailable: PropTypes.func.isRequired,
+  resetNewDucksAvailable: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = ({ feed }) => {
@@ -42,6 +42,8 @@ const mapStateToProps = ({ feed }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(feedActionCreators, dispatch)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(feedActionCreators, dispatch)
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer)

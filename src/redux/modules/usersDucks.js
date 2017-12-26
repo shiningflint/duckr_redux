@@ -1,32 +1,34 @@
+import { fetchUsersDucks } from 'helpers/api'
+import { addMultipleDucks } from 'redux/modules/ducks'
 const FETCHING_USERS_DUCKS = "FETCHING_USERS_DUCKS"
 const FETCHING_USERS_DUCKS_ERROR = "FETCHING_USERS_DUCKS_ERROR"
 const FETCHING_USERS_DUCKS_SUCCESS = "FETCHING_USERS_DUCKS_SUCCESS"
 const ADD_SINGLE_USERS_DUCK = "ADD_SINGLE_USERS_DUCK"
 
-//Actions
-// function fetchingUsersDucks(uid) {
-//   return {
-//     type: FETCHING_USERS_DUCKS,
-//     uid,
-//   }
-// }
-//
-// function fetchingUsersDucksError() {
-//   return {
-//     type: FETCHING_USERS_DUCKS_ERROR,
-//     error: 'Error fetching Users Duck Ids',
-//   }
-// }
-//
-// function fetchingUsersDucksSuccess(uid, duckIds, lastUpdated) {
-//   return {
-//     type: FETCHING_USERS_DUCKS_SUCCESS,
-//     uid,
-//     duckIds,
-//     lastUpdated,
-//   }
-// }
-//
+
+function fetchingUsersDucks(uid) {
+  return {
+    type: FETCHING_USERS_DUCKS,
+    uid,
+  }
+}
+
+function fetchingUsersDucksError() {
+  return {
+    type: FETCHING_USERS_DUCKS_ERROR,
+    error: 'Error fetching Users Duck Ids',
+  }
+}
+
+function fetchingUsersDucksSuccess(uid, duckIds, lastUpdated) {
+  return {
+    type: FETCHING_USERS_DUCKS_SUCCESS,
+    uid,
+    duckIds,
+    lastUpdated,
+  }
+}
+
 export function addSingleUsersDuck(uid, duckId) {
   return {
     type: ADD_SINGLE_USERS_DUCK,
@@ -56,6 +58,24 @@ function usersDuck(state = initialUsersDuckState, action) {
 const initialState = {
   isFetching: true,
   error: ''
+}
+
+
+export function fetchAndHandleUsersDucks (uid) {
+  return function (dispatch, getState) {
+    dispatch(fetchingUsersDucks())
+
+    fetchUsersDucks(uid)
+      .then((ducks) => dispatch(addMultipleDucks(ducks)))
+      .then(({ducks}) => dispatch(
+        fetchingUsersDucksSuccess(
+          uid,
+          Object.keys(ducks).sort((a, b) => ducks[b].timestamp - ducks[a].timestamp),
+          Date.now())
+        )
+      )
+      .catch((error) => dispatch(fetchingUsersDucksError(error)))
+  }
 }
 
 export default function usersDucks(state = initialState, action) {

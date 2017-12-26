@@ -81,4 +81,8 @@
   cursor: pointer;
   transition: all .2s ease-in-out;
   cursor: pointer;
+  transform: scale(1);
+}
+.author:hover {
+  transform: scale(1.05);
 }

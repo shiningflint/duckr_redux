@@ -1,0 +1,26 @@
+.user-container {
+  color: #4a90e2;
+  font-size: 35px;
+  text-align: center;
+  line-height: 55px;
+  font-weight: 100;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.user-header {
+  color: #4a90e2;
+  font-size: 35px;
+  text-align: center;
+  line-height: 55px;
+  font-weight: 100;
+}
+
+.error-message {
+  color: #FF7777;
+  font-size: 22px;
+  text-align: center;
+}

@@ -6,7 +6,6 @@ import Star from 'react-icons/lib/fa/star'
 import './Duck.css'
 
 const Duck = (props) => {
-  console.log(props)
   const starIcon = props.isLiked === true ? 'liked-icon' : 'icon'
   const starFn = props.isLiked === true ? props.handleDeleteLike : props.addAndHandleLike
   return (

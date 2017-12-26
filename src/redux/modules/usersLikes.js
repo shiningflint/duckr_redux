@@ -1,5 +1,5 @@
 import { saveToUsersLikes, incrementNumberOfLikes, decrementNumberOfLikes,
-  deleteFromUsersLikes } from 'helpers/api'
+  deleteFromUsersLikes, fetchUsersLikes } from 'helpers/api'
 
 export const ADD_LIKE = "ADD_LIKE"
 export const REMOVE_LIKE = "REMOVE_LIKE"
@@ -21,25 +21,26 @@ function removeLike(duckId) {
   }
 }
 
-// function fetchingLikes() {
-//   return {
-//     type: FETCHING_LIKES,
-//   }
-// }
-//
-// function fetchingLikesError() {
-//   return {
-//     type: FETCHING_LIKES_ERROR,
-//     error: 'Error fetching likes',
-//   }
-// }
-//
-// function fetchingLikesSuccess(likes) {
-//   return {
-//     type: FETCHING_LIKES_SUCCESS,
-//     likes,
-//   }
-// }
+function fetchingLikes() {
+  return {
+    type: FETCHING_LIKES,
+  }
+}
+
+function fetchingLikesError(error) {
+  console.warn(error)
+  return {
+    type: FETCHING_LIKES_ERROR,
+    error: 'Error fetching likes',
+  }
+}
+
+function fetchingLikesSuccess(likes) {
+  return {
+    type: FETCHING_LIKES_SUCCESS,
+    likes,
+  }
+}
 
 export function addAndHandleLike(duckId, e) {
   e.stopPropagation()
@@ -72,6 +73,18 @@ export function handleDeleteLike (duckId, e) {
         console.warn(error)
         dispatch(addLike(duckId))
       })
+  }
+}
+
+export function setUsersLikes() {
+  return function (dispatch, getState) {
+    const uid = getState().users.authedId
+    dispatch(fetchingLikes())
+    fetchUsersLikes(uid)
+      .then((likes) => {
+        return dispatch(fetchingLikesSuccess(likes)
+      )})
+      .catch((error) => dispatch(fetchingLikesError(error)))
   }
 }
 

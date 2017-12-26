@@ -91,15 +91,12 @@ export default function usersLikes(state = initialState, action) {
       // Can I just find the frikkin duckid and set it to false?
       // NO! Because that will MUTATE the state. Redux state is IMMUTABLE
       // Use filter & reduce for returning the new array with the removed duck
-      return {
-        ...state,
-        duckId: Object.keys(state)
+      return Object.keys(state)
           .filter((duckId) => action.duckId !== duckId)
           .reduce((prev, current) => {
             prev[current] = state[current];
             return prev;
-          }),
-      }
+          }, {})
     case FETCHING_LIKES :
       return {
         ...state,

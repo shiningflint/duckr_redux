@@ -1,4 +1,4 @@
-import { saveDuck } from 'helpers/api'
+import { saveDuck, fetchDuck } from 'helpers/api'
 import { closeModal } from './modal'
 import { addSingleUsersDuck } from './usersDucks'
 
@@ -10,32 +10,33 @@ const ADD_DUCK = "ADD_DUCK"
 const ADD_MULTIPLE_DUCKS = "ADD_MULTIPLE_DUCKS"
 
 //Actions
-// function fetchingDuck() {
-//   return {
-//     type: FETCHING_DUCK,
-//   }
-// }
-//
-// function fetchingDuckError() {
-//   return {
-//     type: FETCHING_DUCK_ERROR,
-//     error: 'Error fetching Duck',
-//   }
-// }
-//
-// function fetchingDuckSuccess(duck) {
-//   return {
-//     type: FETCHING_DUCK_SUCCESS,
-//     duck,
-//   }
-// }
-//
-// function removeFetching() {
-//   return {
-//     type: REMOVE_FETCHING,
-//   }
-// }
-//
+function fetchingDuck() {
+  return {
+    type: FETCHING_DUCK,
+  }
+}
+
+function fetchingDuckError(error) {
+  console.warn(error)
+  return {
+    type: FETCHING_DUCK_ERROR,
+    error: 'Error fetching Duck',
+  }
+}
+
+function fetchingDuckSuccess(duck) {
+  return {
+    type: FETCHING_DUCK_SUCCESS,
+    duck,
+  }
+}
+
+export function removeFetching() {
+  return {
+    type: REMOVE_FETCHING,
+  }
+}
+
 function addDuck(duck) {
   return {
     type: ADD_DUCK,
@@ -60,6 +61,15 @@ export function duckFanout(duck) {
         dispatch(addSingleUsersDuck(uid, duckWithId.duckId))
       })
       .catch((error) => {console.warn('Error in duckFanout', error)})
+  }
+}
+
+export function fetchAndHandleDuck(duckId) {
+  return function(dispatch) {
+    dispatch(fetchingDuck())
+    fetchDuck(duckId)
+      .then((duck) => dispatch(fetchingDuckSuccess(duck)))
+      .catch((error) => dispatch(fetchingDuckError(error)))
   }
 }
 

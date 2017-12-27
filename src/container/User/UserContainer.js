@@ -3,12 +3,22 @@ import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { User } from 'components'
+import { staleDucks, staleUser } from 'helpers/utilities'
 import * as usersActionCreators from 'redux/modules/users'
 import * as usersDucksActionCreators from 'redux/modules/usersDucks'
 
 class UserContainer extends Component {
+  componentDidMount() {
+    const uid = this.props.match.params.uid
+    if(this.props.noUser === true || staleUser(this.props.lastUpdated)) {
+      this.props.fetchAndHandleUser(uid)
+    }
+    if (this.props.noUser === true || staleDucks(this.props.lastUpdated)) {
+      this.props.fetchAndHandleUsersDucks(uid)
+    }
+  }
+
   render () {
-    console.log(this.props);
     return (
       <User
         noUser={this.props.noUser}

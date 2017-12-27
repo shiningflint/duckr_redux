@@ -78,5 +78,5 @@ export function fetchDuck (duckId) {
 
 export function fetchLikeCount (duckId) {
   return ref.child(`likeCount/${duckId}`).once('value')
-    .then((snapshot) => snapshot.val())
+    .then((snapshot) => snapshot.val() || 0)
 }

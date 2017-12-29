@@ -27,7 +27,7 @@
   height: 160px;
 }
 
-.replyTextArea {
+.reply-text-area {
   flex: 1;
   border-radius: 3px;
   padding: 8px 10px;

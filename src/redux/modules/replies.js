@@ -1,3 +1,5 @@
+import { postReply } from 'helpers/api'
+
 const ADD_REPLY = "ADD_REPLY"
 const ADD_REPLY_ERROR = "ADD_REPLY_ERROR"
 const REMOVE_REPLY = "REMOVE_REPLY"
@@ -5,29 +7,30 @@ const FETCHING_REPLIES = "FETCHING_REPLIES"
 const FETCHING_REPLIES_ERROR = "FETCHING_REPLIES_ERROR"
 const FETCHING_REPLIES_SUCCESS = "FETCHING_REPLIES_SUCCESS"
 
-// function addReply() {
-//   return {
-//     type: ADD_REPLY,
-//     duckId,
-//     reply,
-//   }
-// }
-//
-// function addReplyError() {
-//   return {
-//     type: ADD_REPLY_ERROR,
-//     error: 'Error adding reply',
-//   }
-// }
-//
-// function removeReply() {
-//   return {
-//     type: REMOVE_REPLY,
-//     replyId,
-//     duckId,
-//   }
-// }
-//
+function addReply(duckId, reply) {
+  return {
+    type: ADD_REPLY,
+    duckId,
+    reply,
+  }
+}
+
+function addReplyError(error) {
+  console.warn(error)
+  return {
+    type: ADD_REPLY_ERROR,
+    error: 'Error adding reply',
+  }
+}
+
+function removeReply(duckId, replyId) {
+  return {
+    type: REMOVE_REPLY,
+    replyId,
+    duckId,
+  }
+}
+
 // function fetchingReplies() {
 //   return {
 //     type: FETCHING_REPLIES,
@@ -50,9 +53,14 @@ const FETCHING_REPLIES_SUCCESS = "FETCHING_REPLIES_SUCCESS"
 //   }
 // }
 
-export function addAndHandleReply() {
+export function addAndHandleReply(duckId, reply) {
   return (dispatch) => {
-    return {}
+    const { replyWithId, replyPromise } = postReply(duckId, reply)
+    dispatch(addReply(duckId, replyWithId))
+    replyPromise.catch((error) => {
+      dispatch(removeReply(duckId, replyWithId.replyId))
+      dispatch(addReplyError(error))
+    })
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DuckContainer } from 'container'
+import { formatReply } from 'helpers/utilities'
 import './DuckDetails.css'
 import 'sharedStyles/styles.css'
 
@@ -22,7 +23,7 @@ const DuckDetails = (props) => {
           placeholder='Your reponse'/>
         <button
           onClick={handleSubmit}
-          className="dark-Btn">
+          className='dark-btn'>
             {'Submit'}
         </button>
       </div>
@@ -36,7 +37,7 @@ const DuckDetails = (props) => {
         : <div className="container">
             <div className="content">
               <DuckContainer duckId={props.duckId} hideLikeCount={false} hideReplyBtn={true} />
-              <Reply submit={(value, evt) => {console.log(value, evt)}} />
+              <Reply submit={(replyText) => { props.addAndHandleReply(props.duckId, formatReply(replyText, props.authedUser)) }} />
             </div>
             <div className="replies-container">
               {"REPLY SECTION"}

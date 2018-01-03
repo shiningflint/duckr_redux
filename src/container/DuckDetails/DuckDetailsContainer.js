@@ -18,7 +18,6 @@ class DuckDetailsContainer extends Component {
   }
 
   render () {
-    console.log(this.props)
     return (
       <DuckDetails
         isFetching={this.props.isFetching}

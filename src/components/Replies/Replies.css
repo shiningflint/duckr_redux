@@ -1,0 +1,36 @@
+.avatar {
+  width: 75px;
+  border-radius: 3px;
+  margin-right: 15px;
+}
+
+.reply-container {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  font-size: 18px;
+  margin: 7px;
+  padding: 15px;
+}
+
+.cushion {
+  padding: 5px 0;
+}
+
+.replies-header {
+  text-align: center;
+  font-weight: 100;
+  font-size: 50px;
+  margin-top: 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.replies-author {
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+  font-weight: bold;
+}

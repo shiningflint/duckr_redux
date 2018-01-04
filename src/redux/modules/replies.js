@@ -1,4 +1,4 @@
-import { postReply } from 'helpers/api'
+import { postReply, fetchReplies } from 'helpers/api'
 
 const ADD_REPLY = "ADD_REPLY"
 const ADD_REPLY_ERROR = "ADD_REPLY_ERROR"
@@ -31,27 +31,28 @@ function removeReply(duckId, replyId) {
   }
 }
 
-// function fetchingReplies() {
-//   return {
-//     type: FETCHING_REPLIES,
-//   }
-// }
-//
-// function fetchingRepliesError() {
-//   return {
-//     type: FETCHING_REPLIES_ERROR,
-//     error: 'Error fetching replies',
-//   }
-// }
-//
-// function fetchingRepliesSuccess() {
-//   return {
-//     type: FETCHING_REPLIES_SUCCESS,
-//     replies,
-//     duckId,
-//     lastUpdated: Date.now(),
-//   }
-// }
+function fetchingReplies() {
+  return {
+    type: FETCHING_REPLIES,
+  }
+}
+
+function fetchingRepliesError(error) {
+  console.warn(error)
+  return {
+    type: FETCHING_REPLIES_ERROR,
+    error: 'Error fetching replies',
+  }
+}
+
+function fetchingRepliesSuccess(duckId, replies) {
+  return {
+    type: FETCHING_REPLIES_SUCCESS,
+    replies,
+    duckId,
+    lastUpdated: Date.now(),
+  }
+}
 
 export function addAndHandleReply(duckId, reply) {
   return (dispatch) => {
@@ -61,6 +62,15 @@ export function addAndHandleReply(duckId, reply) {
       dispatch(removeReply(duckId, replyWithId.replyId))
       dispatch(addReplyError(error))
     })
+  }
+}
+
+export function fetchAndHandleReplies(duckId) {
+  return (dispatch) => {
+    dispatch(fetchingReplies())
+    fetchReplies(duckId)
+      .then((replies) => dispatch(fetchingRepliesSuccess(duckId, replies)))
+      .catch((error) => dispatch(fetchingRepliesError(error)))
   }
 }
 
@@ -106,7 +116,7 @@ function repliesAndLastUpdated(state = initialDuckState, action) {
     case REMOVE_REPLY :
       return {
         ...state,
-        replies: duckReplies(state[action.replies], action),
+        replies: duckReplies(state.replies, action),
       }
     default:
       return state;
@@ -121,18 +131,8 @@ const initialState = {
 export default function replies(state = initialState, action) {
   switch (action.type) {
     case ADD_REPLY :
-      return {
-        ...state,
-        [action.duckId]: {
-          lastUpdated: action.timestamp,
-          replies: {
-            [action.replyId]: {
-              reply: action.reply,
-            }
-          }
-        }
-      }
     case REMOVE_REPLY :
+    case FETCHING_REPLIES_SUCCESS :
       return {
         ...state,
         isFetching: false,
@@ -150,12 +150,6 @@ export default function replies(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.error,
-      }
-    case FETCHING_REPLIES_SUCCESS :
-      return {
-        ...state,
-        isFetching: false,
-        error: '',
       }
     default:
       return state;

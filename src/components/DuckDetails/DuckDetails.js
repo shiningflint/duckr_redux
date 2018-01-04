@@ -40,7 +40,7 @@ const DuckDetails = (props) => {
               <Reply submit={(replyText) => { props.addAndHandleReply(props.duckId, formatReply(replyText, props.authedUser)) }} />
             </div>
             <div className="replies-container">
-              <RepliesContainer />
+              <RepliesContainer duckId={props.duckId} />
             </div>
           </div>
       }

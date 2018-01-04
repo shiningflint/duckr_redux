@@ -7,6 +7,7 @@ import ducks from './ducks'
 import listeners from './listeners'
 import usersLikes from './usersLikes'
 import likeCount from './likeCount'
+import replies from './replies'
 
 export default combineReducers({
   users,
@@ -16,5 +17,6 @@ export default combineReducers({
   ducks,
   listeners,
   usersLikes,
-  likeCount
+  likeCount,
+  replies
 })

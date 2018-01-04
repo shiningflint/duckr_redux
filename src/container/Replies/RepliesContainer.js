@@ -1,27 +1,40 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Replies } from 'components'
+import * as repliesActionCreator from 'redux/modules/replies'
 
 class RepliesContainer extends Component {
+  componentDidMount () {
+    this.props.fetchAndHandleReplies(this.props.duckId)
+  }
+
   render () {
     return <Replies
-      error={'error message here'}
-      isFetching={false}
-      replies={{
-        'thebanana': {
-          avatar: 'https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/12308672_973918719346282_7898292162723756809_n.jpg?oh=587fcde2c4abbc28cd91fbd95ada5642&oe=5AB2FEAB',
-          name: 'Adam Christopher',
-          reply: 'This duck is sick!',
-          timestamp: Date.now()
-        },
-        'thepotato': {
-          avatar: 'https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/12308672_973918719346282_7898292162723756809_n.jpg?oh=587fcde2c4abbc28cd91fbd95ada5642&oe=5AB2FEAB',
-          name: 'Adam Widjaja',
-          reply: 'It sure is!',
-          timestamp: Date.now()
-        },
-      }} />
+      error={this.props.error}
+      isFetching={this.props.isFetching}
+      replies={this.props.replies} />
   }
 }
 
-export default RepliesContainer
+RepliesContainer.propTypes = {
+  error: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  replies: PropTypes.object,
+  duckId: PropTypes.string.isRequired,
+}
+
+const mapStateToProps = ({ replies }, props) => {
+  const duckRepliesInfo = replies[props.duckId] || {}
+  const theReplies = duckRepliesInfo.replies || {}
+  return {
+    error: replies.error,
+    isFetching: replies.isFetching,
+    replies: theReplies,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(repliesActionCreator, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(RepliesContainer)

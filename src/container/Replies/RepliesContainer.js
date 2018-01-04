@@ -3,11 +3,14 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Replies } from 'components'
+import { staleReplies } from 'helpers/utilities'
 import * as repliesActionCreator from 'redux/modules/replies'
 
 class RepliesContainer extends Component {
   componentDidMount () {
-    this.props.fetchAndHandleReplies(this.props.duckId)
+    if (staleReplies(this.props.lastUpdated)) {
+      this.props.fetchAndHandleReplies(this.props.duckId)
+    }
   }
 
   render () {
@@ -18,6 +21,11 @@ class RepliesContainer extends Component {
   }
 }
 
+RepliesContainer.defaultProps = {
+  lastUpdated: 0,
+  replies: {}
+}
+
 RepliesContainer.propTypes = {
   error: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
@@ -25,13 +33,15 @@ RepliesContainer.propTypes = {
   duckId: PropTypes.string.isRequired,
 }
 
-const mapStateToProps = ({ replies }, props) => {
-  const duckRepliesInfo = replies[props.duckId] || {}
-  const theReplies = duckRepliesInfo.replies || {}
+const mapStateToProps = (state, props) => {
+  const duckRepliesInfo = state.replies[props.duckId] || {}
+  const { lastUpdated, replies } = duckRepliesInfo
+
   return {
-    error: replies.error,
-    isFetching: replies.isFetching,
-    replies: theReplies,
+    error: state.replies.error,
+    isFetching: state.replies.isFetching,
+    replies,
+    lastUpdated
   }
 }
 

@@ -16,3 +16,4 @@ export const provider = new firebase.auth.FacebookAuthProvider()
 
 export const usersDucksExpirationLength = 100000
 export const userExpirationLength = 100000
+export const repliesExpirationLength = 100000
